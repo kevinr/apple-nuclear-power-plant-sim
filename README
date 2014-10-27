@@ -1,0 +1,13 @@
+This is a transcription of Stephen R. Berggren's Apple Nuclear Power Plant
+simulation from Creative Computing Magazine, December 1980, pp. 128-137,
+accessed 2014-10-27 at:
+
+https://archive.org/details/creativecomputing-1980-12
+
+It can be run using Joshua Bell's Applesoft BASIC in Javascript emulator at:
+
+http://www.calormen.com/jsbasic/index.htm
+
+(The source is complete and correct modulo a couple lines -- commented in the
+source -- which aren't supported by Bell's emulator, and a couple apparent
+typos in the original listing.)
