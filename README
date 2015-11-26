@@ -6,9 +6,11 @@ https://archive.org/details/creativecomputing-1980-12
 
 It can be run using Joshua Bell's Applesoft BASIC in Javascript emulator at:
 
-http://www.calormen.com/jsbasic/index.htm
+http://www.calormen.com/jsbasic/
 
-(The source is complete and correct modulo a couple apparent
+or from https://github.com/inexorabletash/jsbasic
+
+(The simulation's BASIC source is complete and correct modulo a couple apparent
 typos in the original listing, which I have fixed.)
 
 There is also an evidently-working Python port which attempts to preserve as
