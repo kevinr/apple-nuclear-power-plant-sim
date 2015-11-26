@@ -113,7 +113,7 @@ def simulation():
         print
         s['DAY'] = s['DAY'] + 1.0
         print  "       APPLE NUCLEAR POWER PLANT"
-        print  "        STATUS REPORT - DAY " + str(s['DAY'])
+        print  "        STATUS REPORT - DAY " + str(int(s['DAY']))
         print
         print "WARNINGS:"
         if s['reactor_temp'] > 800.0:
@@ -149,18 +149,18 @@ def simulation():
         if s['reactor_damage'] > 3 :
             print " REACTOR CORE DAMAGED"
         if s['primary_coolant_damage'] > 4 :
-            print " PRIMARY COOLANT LEAK - " + str(s['primary_coolant_damage']) + "/DAY"
+            print " PRIMARY COOLANT LEAK - " + str(int(s['primary_coolant_damage'])) + "/DAY"
             s['primary_coolant_vol'] = (s['primary_coolant_vol'] - s['primary_coolant_damage']) * ((s['primary_coolant_vol'] - s['primary_coolant_damage']) > 0)
         if s['secondary_coolant_damage'] > 4 :
-            print " SECONDARY COOLANT LEAK - " + str(s['secondary_coolant_damage']) + "/DAY"
+            print " SECONDARY COOLANT LEAK - " + str(int(s['secondary_coolant_damage'])) + "/DAY"
             s['secondary_coolant_vol'] = (s['secondary_coolant_vol'] - s['secondary_coolant_damage']) * ((s['secondary_coolant_vol'] - s['secondary_coolant_damage']) > 0)
         if s['emergency_coolant_damage'] > 2 :
-            print " EMERGENCY COOLANT LEAK - " + str(2 * s['emergency_coolant_damage']) + "/DAY"
+            print " EMERGENCY COOLANT LEAK - " + str(int(2 * s['emergency_coolant_damage'])) + "/DAY"
             s['emgergency_coolant_vol'] = (s['emgergency_coolant_vol'] - 2 * s['emergency_coolant_damage']) * ((s['emgergency_coolant_vol'] - 2 * s['emergency_coolant_damage']) > 0)
         if s['primary_coolant_broken'] :
-            print " PRIMARY COOLANT PUMP FAILURE -" + str(10 * s['primary_coolant_damage'] * (s['primary_coolant_damage'] < 10)  + 100 * (s['primary_coolant_damage'] >= 10)) + "%"
+            print " PRIMARY COOLANT PUMP FAILURE -" + str(int(10 * s['primary_coolant_damage'] * (s['primary_coolant_damage'] < 10)  + 100 * (s['primary_coolant_damage'] >= 10))) + "%"
         if s['secondary_coolant_broken'] :
-            print " SECONDARY COOLANT PUMP FAILURE - " + str(10 * s['secondary_coolant_damage'] * (s['secondary_coolant_damage'] < 10) + 100 * (s['secondary_coolant_damage'] >= 10)) + "%"
+            print " SECONDARY COOLANT PUMP FAILURE - " + str(int(10 * s['secondary_coolant_damage'] * (s['secondary_coolant_damage'] < 10) + 100 * (s['secondary_coolant_damage'] >= 10))) + "%"
         if s['heat_exchanger_broken'] :
             print " HEAT EXCHANGER FAILURE"
         if s['turbine_broken'] :
@@ -171,17 +171,17 @@ def simulation():
             meltdown_ending(s)
 
         print "INDICATORS:"
-        print " REACTOR TEMP. (MAX 800) " + str(s['reactor_temp'])
-        print " HEAT EXCHANGER TEMP. (MAX 500) " + str(s['heat_exchanger_temp'])
-        print " COOLING TOWER TEMP. (MAX 300) " + str(s['cooling_tower_temp'])
-        print " POWER OUTPUT (MAX 2000KW) " + str(s['turbine_output']) + "KW"
+        print " REACTOR TEMP. (MAX 800) " + str(int(s['reactor_temp']))
+        print " HEAT EXCHANGER TEMP. (MAX 500) " + str(int(s['heat_exchanger_temp']))
+        print " COOLING TOWER TEMP. (MAX 300) " + str(int(s['cooling_tower_temp']))
+        print " POWER OUTPUT (MAX 2000KW) " + str(int(s['turbine_output'])) + "KW"
         s['avgerage_power_output'] = s['total_power_output'] / s['DAY']
-        print " AVERAGE POWER OUTPUT  " + str(s['avgerage_power_output']) + "KW/DAY"
-        print " CONTROL RODS- " + str(s['control_rods'])
+        print " AVERAGE POWER OUTPUT  " + str(int(s['avgerage_power_output'])) + "KW/DAY"
+        print " CONTROL RODS- " + str(int(s['control_rods']))
         print " COOLANTS"
-        print "  EMERGENCY  LEVEL- " + str(s['emgergency_coolant_vol']) + "  FLOW- " + str(s['emergency_coolant_flow_rate'])
-        print "  PRIMARY    LEVEL- " + str(s['primary_coolant_vol']) + "  FLOW- " + str(s['primary_coolant_flow_rate'])
-        print "  SECONDARY  LEVEL- " + str(s['secondary_coolant_vol']) + "  FLOW- "+ str(s['secondary_coolant_flow_rate'])
+        print "  EMERGENCY  LEVEL- " + str(int(s['emgergency_coolant_vol'])) + "  FLOW- " + str(s['emergency_coolant_flow_rate'])
+        print "  PRIMARY    LEVEL- " + str(int(s['primary_coolant_vol'])) + "  FLOW- " + str(s['primary_coolant_flow_rate'])
+        print "  SECONDARY  LEVEL- " + str(int(s['secondary_coolant_vol'])) + "  FLOW- "+ str(int(s['secondary_coolant_flow_rate']))
         if (100 - s['reactor_life']) < 5 :
             print
             print
@@ -202,22 +202,22 @@ def simulation():
         # GET NEW CONTROL VALUES
         s['control_rods_2'] = s['control_rods_1']
         s['control_rods_1'] = s['control_rods']
-        b = raw_input("control rods? (" + str(s['control_rods']) + ") ")
+        b = raw_input("control rods? (" + str(int(s['control_rods'])) + ") ")
         if b:
             # max 100
             s['control_rods'] = int(b)
 
-        b = raw_input("emergency coolant flow rate? (" + str(s['emergency_coolant_flow_rate']) + ") ")
+        b = raw_input("emergency coolant flow rate? (" + str(int(s['emergency_coolant_flow_rate'])) + ") ")
         if b:
             # max 100
             s['emergency_coolant_flow_rate'] = int(b)
 
-        b = raw_input("primary coolant flow rate? (" + str(s['primary_coolant_flow_rate']) + ") ")
+        b = raw_input("primary coolant flow rate? (" + str(int(s['primary_coolant_flow_rate'])) + ") ")
         if b:
             # max 100
             s['primary_coolant_flow_rate'] = int(b)
 
-        b = raw_input("secondary coolant flow rate? (" + str(s['secondary_coolant_flow_rate']) + ") ")
+        b = raw_input("secondary coolant flow rate? (" + str(int(s['secondary_coolant_flow_rate'])) + ") ")
         if b:
             # max 100
             s['secondary_coolant_flow_rate'] = int(b)
@@ -225,7 +225,7 @@ def simulation():
         if s['primary_coolant_flow_rate'] == 0 and s['secondary_coolant_flow_rate'] == 0 and s['reactor_heat_flow'] < 1 and s['reactor_temp'] < 100 and s['control_rods'] == 0 :
             maintenance_repair(s)
 
-            print " MAINTENANCE SHUTDOWN - " + str(s['maintenance_days']) + " DAYS"
+            print " MAINTENANCE SHUTDOWN - " + str(int(s['maintenance_days'])) + " DAYS"
             print
 
         if s['emergency_coolant_flow_rate'] > s['emgergency_coolant_vol'] :
