@@ -10,3 +10,12 @@ http://www.calormen.com/jsbasic/index.htm
 
 (The source is complete and correct modulo a couple apparent
 typos in the original listing, which I have fixed.)
+
+There is also an evidently-working Python port which attempts to preserve as
+much of the BASIC program's structure and appearance as possible, while
+bringing such innovations as longer and more descriptive variable names.  My
+goal here was largely to make the math used in the simulation easier to
+understand.
+
+Eventually I will write an idiomatic Python port, but it's probably not
+happening today.
