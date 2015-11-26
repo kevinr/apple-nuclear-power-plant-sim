@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import random
+import sys, random
 
 def main():
     print "        APPLE NUCLEAR POWER PLANT"
@@ -89,7 +89,7 @@ def simulation():
     s['secondary_coolant_flow_rate'] = 0.0
     s['turbine_output'] = 0.0
 
-    # XXX TODO okay doing this twice is dumb, but it's basically what the original does
+    # XXX TODO okay doing this twice -- here and in initiate() -- is dumb, but it's basically what the original does
     s['reactor_heat_flow'] = 0.0
     s['reactor_life'] = 0.0
     s['DAY'] = 0.0
@@ -100,13 +100,7 @@ def simulation():
 
     maintenance_repair(s)
 
-    s['reactor_heat_flow'] = 0.0
-    s['reactor_life'] = 0.0
-    s['DAY'] = 0.0
-    s['total_power_output'] = 0.0
-    s['control_rods'] = 0.0
-    s['control_rods_1'] = 0.0
-    s['control_rods_2'] = 0.0
+    initiate(s)
 
     # WRITE REPORT
     while True:
@@ -170,6 +164,18 @@ def simulation():
             print "     MELTDOWN!  MELTDOWN!  MELTDOWN!"
             meltdown_ending(s)
 
+            a = ''
+            while a.upper() != 'Y' and a.upper() != 'N':
+                print
+                a = raw_input("WOULD YOU LIKE TO TRY AGAIN? (Y OR N)")
+
+            if a.upper() == 'Y':
+                maintenance_repair(s)
+                initiate(s)
+                continue
+            elif a.upper() == 'N':
+                sys.exit(0)
+
         print "INDICATORS:"
         print " REACTOR TEMP. (MAX 800) " + str(int(s['reactor_temp']))
         print " HEAT EXCHANGER TEMP. (MAX 500) " + str(int(s['heat_exchanger_temp']))
@@ -190,14 +196,17 @@ def simulation():
             power_evaluation(s)
             damage_evaluation(s)
 
-            while True:
+            a = ''
+            while a.upper() != 'Y' and a.upper() != 'N':
                 print
                 a = raw_input("WOULD YOU LIKE TO TRY AGAIN? (Y OR N)")
-                if a.upper() == 'Y':
-                    maintenance_repair()
-                    continue
-                elif a.upper() == 'N':
-                    sys.exit(0)
+
+            if a.upper() == 'Y':
+                maintenance_repair(s)
+                initiate(s)
+                continue
+            elif a.upper() == 'N':
+                sys.exit(0)
 
         # GET NEW CONTROL VALUES
         s['control_rods_2'] = s['control_rods_1']
@@ -317,6 +326,17 @@ def maintenance_repair(s):
     s['turbine_output'] = 0
 
     return
+
+# 390
+#  INITIATE
+def initiate(s):
+    s['reactor_heat_flow'] = 0.0
+    s['reactor_life'] = 0.0
+    s['DAY'] = 0.0
+    s['total_power_output'] = 0.0
+    s['control_rods'] = 0.0
+    s['control_rods_1'] = 0.0
+    s['control_rods_2'] = 0.0
 
 # 3000
 #  MELTDOWN ENDING
