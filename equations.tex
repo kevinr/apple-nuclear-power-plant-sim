@@ -1,0 +1,103 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{Equations used in Stephen R. Berggren's Apple Nuclear Power Plant Simulation}
+\author{Kevin Riggle}
+
+\maketitle
+
+
+Or, \emph{Nuclear Power Plant: The Board Game}.
+
+Each turn represents a day in the life of a nuclear power plant.
+
+\section{Warning Thresholds}
+
+Notify the player when these thresholds are exceeded:
+
+\begin{itemize}
+\item Reactor overheats above 800$^{\circ}$C.
+\item Heat Exchanger overheats above 500$^{\circ}$C.
+\item Turbine output is low below 1000 kW.
+\item Turbine output overloads above 2000 kW.
+\item Cooling Tower overheats above 300$^{\circ}$C.
+\item Emergency Cooling System coolant volume is low below 200 gal.
+\item Primary Cooling System coolant volume is low below 100 gal.
+\item Secondary Cooling System coolant volume is low below 100 gal.
+\end{itemize}
+
+Notify the player when these levels are met:
+
+\begin{itemize}
+\item The Reactor core is damaged when it has 4 or more points of damage.
+\item The Reactor core has melted down when it has 6 or more points of damage.  This ends the game in a loss.
+\item The Primary Cooling System is leaking when it has 5 or more points of damage.
+\item The Secondary Cooling System is leaking when it has 5 or more points of damage.
+\item The Emergency Cooling System is leaking when it has 3 or more points of damage.
+\end{itemize}
+
+Notify the player of these status conditions:
+
+\begin{itemize}
+\item The Primary Cooling System is broken.  Report the coolant pump failure percentage as $10\times$ the number of points of damage the system has, up to a maximum of 100\% (10 or more points).
+\item The Secondary Cooling System is broken.  Report the coolant pump failure percentage as $10\times$ the number of points of damage the system has, up to a maximum of 100\% (10 or more points).
+\item The Heat Exchanger is broken.
+\item The Turbine is broken.
+\end{itemize}
+
+\section{Calculating Component Damage}
+\subsection{Reactor overheated}
+
+Every turn when the Reactor is overheated (above 800$^{\circ}$C), the reactor gains:
+\begin{itemize}
+\item 1 point of damage always
+\item 1 point if it is above 850$^{\circ}$C
+\item 1 point if it is above 900$^{\circ}$C
+\item 1 point if it is above 950$^{\circ}$C
+\end{itemize}
+
+So the Reactor can gain up to 4 points of damage a turn.
+
+Every turn when the Reactor is overheated the Primary Cooling System gains 1 point of damage.
+
+Every turn when the Reactor is overheated the Emergency Cooling System gains 1 point of damage.  The Emergency Coolant system gains 1 additional point of damage if the Reactor temperature is above 850$^{\circ}$C.
+
+\subsection{Heat Exchanger overheated}
+
+Every turn when the Heat Exchanger is overheated:
+\begin{itemize}
+\item The Heat Exchanger gains 1 point of damage.  The Heat Exchanger gains 1 additional point of damage if the Heat Exchanger is above 600$^{\circ}$C.
+\item The Primary Cooling System gains 1 point of damage.
+\item The Secondary Cooling System gains 1 point of damage.
+\end{itemize}
+
+\subsection{Turbine overloaded}
+
+Every turn when the Turbine is overloaded (output is above 2000 RPM):
+\begin{itemize}
+\item The Turbine gains 1 point of damage.  The Turbine gains 1 additional point of damage if its output is above 2500 RPM.
+\item The Secondary Cooling System gains 1 point of damage.
+\end{itemize}
+
+\subsection{Cooling Tower overheated}
+
+Every turn when the Cooling Tower is overheated (above 300$^{\circ}$C), the Secondary Cooling System gains 1 point of damage.
+
+\subsection{Primary Cooling System coolant volume low}
+
+Every turn when the Primary Cooling System coolant volume is low (below 100 gal.), the Primary Cooling System gains 1 point of damage.
+
+If the Primary Cooling System has 5 or more points of damage, the Primary Cooling System is leaking.  Every turn reduce coolant volume by the number of points of damage the system has.
+
+\subsection{Secondary Cooling System coolant volume low}
+
+Every turn when the Secondary Cooling System coolant volume is low (below 100 gal.), the Secondary Cooling System gains 1 point of damage.
+
+If the Secondary Cooling System has 5 or more points of damage, the Secondary Cooling System is leaking.  Every turn reduce coolant volume by the number of points of damage the system has.
+
+\subsection{Emergency Cooling System damage}
+
+If the Emergency Cooling System has 3 or more points of damage, the Emergency Cooling System is leaking.  Every turn reduce coolant volume by twice (2$\times$) the number of points of damage the system has.
+
+\end{document}
