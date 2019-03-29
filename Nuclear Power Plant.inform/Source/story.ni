@@ -17,6 +17,8 @@ The current day is a number that varies. The current day is 0.
 
 The total equipment damage is a number that varies. The total equipment damage is 0.
 
+The total power output is a power that varies. The total power output is 0 kilowatts.
+
 
 A settable is a kind of thing.
 
@@ -51,11 +53,11 @@ Reactor Room is a room. The reactor core is an object in Reactor Room. The react
 
 [reactor core]
 The reactor core has a number called current heat flow. The current heat flow of the reactor core is usually 0.
-The reactor core has a number called life. The life of the reactor core is usually 0.
+The reactor core has a number called lifetime. The lifetime of the reactor core is usually 0.
 The reactor core has a temperature called current temperature. The current temperature of the reactor core is usually 25C.
 The reactor core has a number called damage. The damage of the reactor core is usually 0.
 The reactor core has a number called current control rod position. The current control rod position is usually 0.
-The reactor core has a number called previous control rod position. The previous control rod position is usually 0.
+The reactor core has a number called penultimate control rod position. The penultimate control rod position is usually 0.
 The reactor core has a number called antipenultimate control rod position. The antipenultimate control rod position is usually 0.
 
 [turbine]
@@ -177,16 +179,33 @@ Carry out repairing silently:
 	now the coolant flow rate of the Primary Cooling System is 0 gal/s;
 	now the coolant flow rate of the Secondary Cooling System is 0 gal/s;
 	now the current output power of the turbine is 0 kilowatts.
+	
+Initiating silently is an action applying to nothing.
+
+Carry out initiating silently:
+	now the current heat flow of the reactor core is 0;
+	now the lifetime of the reactor core is 0;
+	now the current day is 0;
+	now the total power output is 0 kilowatts;
+	now the current control rod position of the reactor core is 0;
+	now the penultimate control rod position of the reactor core is 0;
+	now the antipenultimate control rod position of the reactor core is 0.
 
 When play begins:
 	try repairing silently;
-	now the current day is 1;
+	try initiating silently;
+	try advancing silently;
 	say "To advance the day, use 'sleep' or 'advance'. To repair the reactor, use 'repair'."
 
 
 Advancing is an action applying to nothing. Instead of sleeping, try advancing. Instead of exiting, try advancing.
 
+Advancing silently is an action applying to nothing.
+
 Carry out advancing:
-	say "The next day...";
+	try advancing silently;
+	say "The next day...".
+
+Carry out advancing silently:
 	increment the current day.
 [	now the damage of the reactor core is ]
