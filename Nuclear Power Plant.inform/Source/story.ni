@@ -20,14 +20,14 @@ The total equipment damage is a number that varies. The total equipment damage i
 
 A settable is a kind of thing.
 
-Control Room is a room.  The control panel is an object in Control Room. The control panel is fixed in place. The control rod control dial is a settable on the control panel. The control rod control dial is fixed in place.
+Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it."  The control panel is scenery in Control Room. The control panel is fixed in place. The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current control rod position of the reactor core]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial. Understand "screen" as the control panel.
 
 Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day][line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the damage of the Primary Cooling System is greater than 4] PRIMARY COOLANT LEAK[line break][end if][if the damage of the Secondary Cooling System is greater than 4] SECONDARY COOLANT LEAK[line break][end if][if the damage of the Emergency Cooling System is greater than 2] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current control rod position of the reactor core]."
 
 
-Understand "set [something] to [a number]" as numbered setting it to. Numbered setting it to is an action applying to one thing and one number.
+Understand "set [something] to [a number]" as numbered setting it to. Numbered setting it to is an action applying to one thing and one number. Understand "turn [something] to [a number]" as numbered setting it to. Understand "twist [something] to [a number]" as numbered setting it to. Understand "twiddle [something] to [a number]" as numbered setting it to. Understand "frob [something] to [a number]" as numbered setting it to.
 
-Instead of setting the control rod control dial to:
+Instead of setting the control dial to:
 	say "The dial is numerical, labeled between 0 and 100."
 
 Check numbered setting it to:
@@ -180,7 +180,8 @@ Carry out repairing silently:
 
 When play begins:
 	try repairing silently;
-	now the current day is 1.
+	now the current day is 1;
+	say "To advance the day, use 'sleep' or 'advance'. To repair the reactor, use 'repair'."
 
 
 Advancing is an action applying to nothing. Instead of sleeping, try advancing. Instead of exiting, try advancing.
