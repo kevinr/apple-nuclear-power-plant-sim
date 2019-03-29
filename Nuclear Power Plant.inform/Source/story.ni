@@ -13,13 +13,36 @@ Volumetric flow is a kind of value.
 Volumetric flow times elapsed time specifies a volume.
 
 
-Control Room is a room.  The control panel is an object in Control Room. Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the damage of the Primary Cooling System is greater than 4] PRIMARY COOLANT LEAK[line break][end if][if the damage of the Secondary Cooling System is greater than 4] SECONDARY COOLANT LEAK[line break][end if][if the damage of the Emergency Cooling System is greater than 2] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current control rod position of the reactor core]."
+A settable is a kind of thing.
+
+Control Room is a room.  The control panel is an object in Control Room. The control panel is fixed in place. The control rod control dial is a settable on the control panel. The control rod control dial is fixed in place.
+
+Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the damage of the Primary Cooling System is greater than 4] PRIMARY COOLANT LEAK[line break][end if][if the damage of the Secondary Cooling System is greater than 4] SECONDARY COOLANT LEAK[line break][end if][if the damage of the Emergency Cooling System is greater than 2] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current control rod position of the reactor core]."
+
+
+Understand "set [something] to [a number]" as numbered setting it to. Numbered setting it to is an action applying to one thing and one number.
+
+Instead of setting the control rod control dial to:
+	say "The dial is numerical, labeled between 0 and 100."
+
+Check numbered setting it to:
+	if the noun is not a settable:
+		try setting the noun to the topic understood instead;
+	otherwise if the number understood is less than 0 or the number understood is greater than 100:
+		try setting the noun to the topic understood instead.
+
+Carry out numbered setting it to:
+	say "You set [the noun] to [the number understood].";
+	now the current control rod position of the reactor core is the number understood.
+
+Test dial with "set dial to 10 / set dial to 1000 / set dial to foo / set panel to 10 / set panel to 1000 / set panel to foo".
+
 
 A breakable is a kind of thing. A breakable can be broken or unbroken. A breakable is usually unbroken.
 
 Understand the command "break" as something new. Understand "break [something]" as breaking. Breaking is an action applying to one thing. Check breaking: if the noun is not a breakable, say "You can't break that." instead. Carry out breaking: say "Crash!"; now the noun is broken. Before printing the name of a broken breakable: say "broken ".
 
-Reactor Room is a room. The reactor core is an object in Reactor Room. The turbine is a breakable in Reactor Room. The heat exchanger is a breakable in Reactor Room.  The Emergency Cooling System is an object in Reactor Room. The Primary Cooling System is a breakable in Reactor Room. The Secondary Cooling System is a breakable in Reactor Room.
+Reactor Room is a room. The reactor core is an object in Reactor Room. The reactor core is fixed in place. The turbine is a breakable in Reactor Room. The turbine is fixed in place. The heat exchanger is a breakable in Reactor Room. The heat exchanger is fixed in place. The Emergency Cooling System is an object in Reactor Room. The Emergency Cooling System is fixed in place. The Primary Cooling System is a breakable in Reactor Room. The Primary Cooling System is fixed in place. The Secondary Cooling System is a breakable in Reactor Room. The Secondary Cooling System is fixed in place.
 
 [reactor core]
 The reactor core has a number called current heat flow. The current heat flow of the reactor core is usually 0.
@@ -55,7 +78,7 @@ The Secondary Cooling System has a number called damage. The damage of the Secon
 
 
 
-Outdoors is a room. The cooling tower is an object in Outdoors.
+Outdoors is a room. The cooling tower is an object in Outdoors. The cooling tower is fixed in place.
 
 [cooling tower]
 The cooling tower has a temperature called current temperature.  The current temperature of the cooling tower is usually 25C.
