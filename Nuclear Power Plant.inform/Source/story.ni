@@ -358,9 +358,9 @@ Carry out advancing silently:
 	say "Primary cooling heat flow after: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow after: [current heat flow rate of the Emergency Cooling System][line break]";
 	say "Reactor temp before: [current temperature of the reactor core][line break]";
 	let R0 be the current temperature of the reactor core;
-	let D be 1 day;
+	let D be 1 second;
 	let V be 1 degree Centigrade;
-	let Z be 1 kilowatt;
+	let Z be 1 watt;
 	let RF be the current heat flow rate of the reactor core;
 	let EF be the current heat flow rate of the Emergency Cooling System;
 	let PF be the current heat flow rate of the Primary Cooling System;
