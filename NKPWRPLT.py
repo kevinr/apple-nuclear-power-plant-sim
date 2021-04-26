@@ -122,7 +122,7 @@ def simulation():
             s['secondary_coolant_damage'] = s['secondary_coolant_damage'] + 1
         if s['turbine_output'] > 2000 :
             print " TURBINE OVERLOADED"
-            s['TD'] = s['TD'] + 1 + (s['turbine_output'] > 2500  )
+            s['turbine_damage'] = s['turbine_damage'] + 1 + (s['turbine_output'] > 2500  )
             s['secondary_coolant_damage'] = s['secondary_coolant_damage'] + 1
         if s['cooling_tower_temp'] > 300 :
             print " COOLING TOWER OVERHEATED"
