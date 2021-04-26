@@ -30,13 +30,12 @@ Volumetric heat capacity is a kind of value.
 
 Volumetric heat capacity times a volume specifies a power.
 
-[Volumetric specific heat capacity is a kind of value.
+Volumetric specific heat capacity is a kind of value.
 
-1.0 KW/gal/C (in US units, in KW/gal/C) or 1 kilowatt per kilogram per degree
-centigrade (in kilowatts per gallon per degree centigrade, singular) or 2 kilowatts per gallon per degree centigrade (in kilowatts per gallon per degree
-centigrade, plural) specifies a volumetric specific heat capacity.
+1.0 KW/gal/C (in US units, in KW/gal/C) or 1 kilowatt per gallon per degree
+centigrade (in kilowatts per gallon per degree centigrade, singular) or 2 kilowatts per gallon per degree centigrade (in kilowatts per gallon per degree centigrade, plural) specifies a volumetric specific heat capacity.
 
-Volumetric specific heat capacity times a temperature specifies a volumetric heat capacity.]
+Volumetric specific heat capacity times a temperature specifies a volumetric heat capacity.
 
 The current day is a number that varies. The current day is 0.
 
@@ -83,7 +82,7 @@ The reactor core has a temperature called current temperature. The current tempe
 The reactor core has a number called damage. The damage of the reactor core is usually 0.
 The reactor core has a number called current control rod position. The current control rod position is usually 0.
 The reactor core has a number called penultimate control rod position. The penultimate control rod position is usually 0.
-The reactor core has a number called antipenultimate control rod position. The antipenultimate control rod position is usually 0.
+The reactor core has a number called antepenultimate control rod position. The antepenultimate control rod position is usually 0.
 
 [turbine]
 The turbine has a power called current output power. The current output power of the turbine is usually 0 kilowatts.
@@ -218,7 +217,7 @@ Carry out initiating silently:
 	now the total power output is 0 kilowatts;
 	now the current control rod position of the reactor core is 0;
 	now the penultimate control rod position of the reactor core is 0;
-	now the antipenultimate control rod position of the reactor core is 0.
+	now the antepenultimate control rod position of the reactor core is 0.
 
 When play begins:
 	try repairing silently;
@@ -239,9 +238,9 @@ Equation - Reactor Heat Flow Rate Equation
 	HF = (P0*C0 + P1*C1 + P2*C2) / 2500 * (100 - RL)
 where HF is a heat flow rate, P0 is a heat flow rate, C0 is a number, P1 is a heat flow rate, C1 is a number, P2 is a heat flow rate, C2 is a number, and RL is a real number.
 
-[Equation - Rate of Heat Flow Equation
-	NF = CF / ( CH * dT)
-where NF is a heat flow rate, CF is a volumetric flow, CH is a volumetric specific heat capacity, and dT is a temperature.]
+Equation - Rate of Heat Flow Equation
+	NF = CF * CH * dT
+where NF is a heat flow rate, CF is a volumetric flow, CH is a volumetric specific heat capacity, and dT is a temperature.
 
 Equation - Reactor Temperature Equation 1
 	R1 = R0 + RF*D*(V/Z) - EF*D*(V/Z) - PF*D*(V/Z) - X
@@ -302,7 +301,7 @@ Carry out advancing silently:
 	[XXX TODO this is where we check whether the reactor is out of fuel and end the game]
 	[GET NEW CONTROL VALUES]
 	[XXX todo add flow rate control values]
-	now the antipenultimate control rod position of the reactor core is the penultimate control rod position of the reactor core;
+	now the antepenultimate control rod position of the reactor core is the penultimate control rod position of the reactor core;
 	now the penultimate control rod position of the reactor core is the current control rod position of the reactor core;
 	now the current control rod position of the reactor core is the current setting of the control dial;
 	[XXX TODO this is where we kick off a maintenance shutdown if various inputs are zero, if we decide to go that way]
@@ -332,27 +331,32 @@ Carry out advancing silently:
 		otherwise:
 			now the coolant flow rate of the Primary Cooling System is 0 gal/day;
 	[nuke stuff]
+	say "Reactor heat flow before: [current heat flow rate of the reactor core][line break]";
+	say "Control rods: [current control rod position of the reactor core]; 1: [penultimate control rod position of the reactor core]; 2: [antepenultimate control rod position of the reactor core]; reactor life: [lifetime of the reactor core][line break]";
 	increase the lifetime of the reactor core by the current heat flow rate of the reactor core divided by 50 kilowatts/day;
 	let P0 be 30 kilowatts/day;
 	let P1 be 60 kilowatts/day;
 	let P2 be 10 kilowatts/day;
 	let C0 be the current control rod position of the reactor core;
 	let C1 be the penultimate control rod position of the reactor core;
-	let C2 be the antipenultimate control rod position of the reactor core;
+	let C2 be the antepenultimate control rod position of the reactor core;
 	let RL be the lifetime of the reactor core;
 	let HF be given by the Reactor Heat Flow Rate Equation;
 	now the current heat flow rate of the reactor core is HF;
+	say "Reactor heat flow after: [current heat flow rate of the reactor core][line break]";
+	say "Primary cooling heat flow before: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow before: [current heat flow rate of the Emergency Cooling System][line break]";
 	if the coolant volume of the Primary Cooling System is greater than 100 gal:
 		now the current heat flow rate of the Primary Cooling System is the coolant flow rate of the Primary Cooling System times 100 kilowatts/gallon;
 	otherwise:
 		[XXX TODO hunh? this seems a little hackish, I'm not sure the math here is right]
 		now the current heat flow rate of the Primary Cooling System is the coolant volume of the Primary Cooling System times 1 kilowatt/day divided by 350 gallons;
-	[XXX TODO fixme: line 269 in NKPWRPLT.py]
-	[let CF be the coolant flow rate of the Emergency Cooling System;
-	let CH be 200 kilowatts/gallon/C;
+	let CF be the coolant flow rate of the Emergency Cooling System;
+	let CH be 200 kW/gal/C;
 	let dT be the current temperature of the reactor core minus 25 degrees Centigrade;
 	let NF be given by the Rate of Heat Flow Equation;
-	now the current heat flow of the Emergency Cooling System is NF.]
+	now the current heat flow rate of the Emergency Cooling System is NF;
+	say "Primary cooling heat flow after: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow after: [current heat flow rate of the Emergency Cooling System][line break]";
+	say "Reactor temp before: [current temperature of the reactor core][line break]";
 	let R0 be the current temperature of the reactor core;
 	let D be 1 day;
 	let V be 1 degree Centigrade;
@@ -364,10 +368,12 @@ Carry out advancing silently:
 	if the current temperature of the reactor core is greater than 25 degrees Centigrade:
 		now X is 5 degrees centigrade;
 	let R1 be given by the Reactor Temperature Equation 1;
+	say "Reactor temp after: [R1][line break]";
 	let RX be 0 degrees Centigrade;
 	if R1 is greater than 25 degrees Centigrade:
 		now RX is R1 minus 25 degrees Centigrade;
 	let R2 be 25 degrees Centigrade plus RX;
+	say "Reactor temp after2: [R2][line break]";
 	now the current temperature of the reactor core is R2.
 	
 	
