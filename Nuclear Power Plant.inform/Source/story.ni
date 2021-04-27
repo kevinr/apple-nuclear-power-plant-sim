@@ -2,34 +2,35 @@
 
 Include Metric Units by Graham Nelson.
 
+[UNITS]
+
+[Gallons]
 1.0 G (in US units, in G) or 1 gallon (in gallons, singular) or 2 gallons
 (in gallons, plural) or 1 gal (in gals, singular) or 2 gals (in
 gals, plural) specifies a volume equivalent to 3.785 liters.
 
-Volumetric flow is a kind of value.  Inverse volumetric flow is a kind of value.
+[Volumetric flow]
+Volumetric flow is a kind of value.
 
 1.0 G/day (in US units, in G/day) or 1 gallon per day (in gallons per day, singular) or 2 gallons per day (in gallons per day, plural) or 1 gal/d (in gals/d, singular) or 2 gals/d (in gals/d, plural) or 1 gal/day (in gals/day, singular) or 2 gals/day (in gals/day, plural) specifies a volumetric flow.
 
-1.0 day/G (in US units, in day/G) or 1 day per gallon (in days per gallon, singular) or 2 days per gallon (in days per gallon, plural) or 1 d/gal (in d/gal, singular) or 2 ds/gal (in ds/gal, plural) or 1 day/gal (in day/gal, singular) or 2 days/gal (in days/gal, plural) specifies an inverse volumetric flow.
-
 Volumetric flow times elapsed time specifies a volume.
-Inverse volumetric flow times a volume specifies an elapsed time.
 
-Heat flow rate is a kind of value. Inverse heat flow rate is a kind of value.
+[Heat flow]
+Heat flow rate is a kind of value.
 
 1.0 KW/day (in Metric units, in KW/day) or 1 kilowatt per day (in kilowatts per day, singular) or 2 kilowatts per day (in kilowatts per day, plural) or 1 kilowatt/day (in kilowatts/day, singular) or 2 kilowatts/day (in kilowatts/day, plural) or 1 kW/d (in kW/d) specifies a heat flow rate.
 
-1.0 day/KW (in Metric units, in days/KW) or 1 day per kilowatt (in days per kilowatt, singular) or 2 days per kilowatt (in days per kilowatt, plural) or 1 day/kilowatt (in days/kilowatt, singular) or 2 days/kilowatt (in days/kilowatt, plural) or 1 d/kW (in d/kW) specifies an inverse heat flow rate.
-
 Heat flow rate times elapsed time specifies a power.
-Inverse heat flow rate times a power specifies an elapsed time.
 
+[Volumetric heat capacity]
 Volumetric heat capacity is a kind of value.
 
 1.0 KW/gallon (in KW/gallon) or 1 kilowatt per gallon (in kilowatts per gallon, singular) or 2 kilowatts per gallon (in kilowatts per gallon, plural) or 1 kilowatt/gallon (in kilowatts/gallon, singular) or 2 kilowatts/gallon (in kilowatts/gallon, plural) or 1 kilowatt/gal (in kilowatts/gal, singular) or 2 kilowatts/gal (in kilowatts/gal, plural) or 1 KW/gal (in KW/gal) specifies a volumetric heat capacity.
 
 Volumetric heat capacity times a volume specifies a power.
 
+[Volumetric specific heat capacity]
 Volumetric specific heat capacity is a kind of value.
 
 1.0 KW/gal/C (in US units, in KW/gal/C) or 1 kilowatt per gallon per degree
@@ -37,19 +38,31 @@ centigrade (in kilowatts per gallon per degree centigrade, singular) or 2 kilowa
 
 Volumetric specific heat capacity times a temperature specifies a volumetric heat capacity.
 
+
+[GAME]
+
+[Debug output]
+
+Debug-output is a truth state that varies.  Debug-output is usually false.
+
+Understand "toggle debug output" as toggling debug output.  Understand "toggle debugging" as toggling debug output.  Toggling debug output is an action out of world.
+
+Carry out toggling debug output:
+	if debug-output is false, now debug-output is true;
+	otherwise now debug-output is false.
+
+Report toggling debug output:
+	say "Debug output is now [if debug-output is true]ON[otherwise]OFF[end if]."
+
+[Some variables]
 The current day is a number that varies. The current day is 0.
 
 The total equipment damage is a real number that varies. The total equipment damage is 0.
 
 The total power output is a power that varies. The total power output is 0 kilowatts.
 
-
+[Settables]
 A settable is a kind of thing.  A settable has a number called current setting. The current setting is usually 0.
-
-Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it."  The control panel is scenery in Control Room. The control panel is fixed in place. The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial. Understand "screen" as the control panel.
-
-Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day][line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the leak rate of the Primary Cooling System is greater than 4 gal/day] PRIMARY COOLANT LEAK[line break][end if][if the leak rate of the Secondary Cooling System is greater than 4 gal/day] SECONDARY COOLANT LEAK[line break][end if][if the leak rate of the Emergency Cooling System is greater than 2 gal/day] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]."
-
 
 Understand "set [something] to [a number]" as numbered setting it to. Numbered setting it to is an action applying to one thing and one number. Understand "turn [something] to [a number]" as numbered setting it to. Understand "twist [something] to [a number]" as numbered setting it to. Understand "twiddle [something] to [a number]" as numbered setting it to. Understand "frob [something] to [a number]" as numbered setting it to.
 
@@ -68,10 +81,20 @@ Carry out numbered setting it to:
 
 Test dial with "set dial to 10 / set dial to 1000 / set dial to foo / set panel to 10 / set panel to 1000 / set panel to foo".
 
-
+[Breakables]
 A breakable is a kind of thing. A breakable can be broken or unbroken. A breakable is usually unbroken.
 
 Understand the command "break" as something new. Understand "break [something]" as breaking. Breaking is an action applying to one thing. Check breaking: if the noun is not a breakable, say "You can't break that." instead. Carry out breaking: say "Crash!"; now the noun is broken. Before printing the name of a broken breakable: say "broken ".
+
+
+[The Control Room]
+
+Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it."  The control panel is scenery in Control Room. The control panel is fixed in place. The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial. Understand "screen" as the control panel.
+
+Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day][line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the leak rate of the Primary Cooling System is greater than 4 gal/day] PRIMARY COOLANT LEAK[line break][end if][if the leak rate of the Secondary Cooling System is greater than 4 gal/day] SECONDARY COOLANT LEAK[line break][end if][if the leak rate of the Emergency Cooling System is greater than 2 gal/day] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]."
+
+
+[The Reactor Room]
 
 Reactor Room is a room. The reactor core is an object in Reactor Room. The reactor core is fixed in place. The turbine is a breakable in Reactor Room. The turbine is fixed in place. The heat exchanger is a breakable in Reactor Room. The heat exchanger is fixed in place. The Emergency Cooling System is an object in Reactor Room. The Emergency Cooling System is fixed in place. The Primary Cooling System is a breakable in Reactor Room. The Primary Cooling System is fixed in place. The Secondary Cooling System is a breakable in Reactor Room. The Secondary Cooling System is fixed in place.
 
@@ -111,7 +134,7 @@ The Secondary Cooling System has a volumetric flow called leak rate. The leak ra
 
 
 
-
+[The Outdoors]
 
 Outdoors is a room. The cooling tower is an object in Outdoors. The cooling tower is fixed in place.
 
@@ -119,9 +142,11 @@ Outdoors is a room. The cooling tower is an object in Outdoors. The cooling towe
 The cooling tower has a temperature called current temperature.  The current temperature of the cooling tower is usually 25C.
 
 
+[Room layout]
 Reactor Room is east of the control room. Outdoors is north of the Reactor Room.
 
 
+[Repairing]
 
 Repairing is an action applying to nothing. Understand "repair" as repairing. Understand "maintenance" as repairing.
 
@@ -160,10 +185,10 @@ Carry out repairing silently:
 	let R be the damage of the reactor core;
 	[from http://www.ifwiki.org/index.php/Inform_7_for_Programmers/Part_4
 	-- "We can always multiply and divide a unit by a plain number. Multiplying and dividing by one is how we explicitly typecast between units and numbers."]
-	let E be the leak rate of the Emergency Cooling System times 1 day/gal;
-	let P be the leak rate of the primary cooling system times 1 day/gal;
+	let E be the leak rate of the Emergency Cooling System times 1 day divided by 1 gal;
+	let P be the leak rate of the primary cooling system times 1 day divided by 1 gal;
 	let H be the damage of the heat exchanger;
-	let S be the leak rate of the Secondary Cooling System times 1 day/gal;
+	let S be the leak rate of the Secondary Cooling System times 1 day divided by 1 gal;
 	let T be the damage of the turbine;
 	let D1 be given by the Total Equipment Damage Equation;
 	now the total equipment damage is D1;
@@ -207,6 +232,9 @@ Carry out repairing silently:
 	now the coolant flow rate of the Primary Cooling System is 0 gal/day;
 	now the coolant flow rate of the Secondary Cooling System is 0 gal/day;
 	now the current output power of the turbine is 0 kilowatts.
+
+
+[Initial setup]
 	
 Initiating silently is an action applying to nothing.
 
@@ -225,6 +253,8 @@ When play begins:
 	try advancing silently;
 	say "To advance the day, use 'sleep' or 'advance'. To repair the reactor, use 'repair'."
 
+
+[Advancing the simulation clock]
 
 Advancing is an action applying to nothing. Instead of sleeping, try advancing. Instead of exiting, try advancing.
 
@@ -331,8 +361,9 @@ Carry out advancing silently:
 		otherwise:
 			now the coolant flow rate of the Primary Cooling System is 0 gal/day;
 	[nuke stuff]
-	say "Reactor heat flow before: [current heat flow rate of the reactor core][line break]";
-	say "Control rods: [current control rod position of the reactor core]; 1: [penultimate control rod position of the reactor core]; 2: [antepenultimate control rod position of the reactor core]; reactor life: [lifetime of the reactor core][line break]";
+	if debug-output is true:
+		say "Reactor heat flow before: [current heat flow rate of the reactor core][line break]";
+		say "Control rods: [current control rod position of the reactor core]; 1: [penultimate control rod position of the reactor core]; 2: [antepenultimate control rod position of the reactor core]; reactor life: [lifetime of the reactor core][line break]";
 	increase the lifetime of the reactor core by the current heat flow rate of the reactor core divided by 50 kilowatts/day;
 	let P0 be 30 kilowatts/day;
 	let P1 be 60 kilowatts/day;
@@ -343,8 +374,9 @@ Carry out advancing silently:
 	let RL be the lifetime of the reactor core;
 	let HF be given by the Reactor Heat Flow Rate Equation;
 	now the current heat flow rate of the reactor core is HF;
-	say "Reactor heat flow after: [current heat flow rate of the reactor core][line break]";
-	say "Primary cooling heat flow before: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow before: [current heat flow rate of the Emergency Cooling System][line break]";
+	if debug-output is true:
+		say "Reactor heat flow after: [current heat flow rate of the reactor core][line break]";
+		say "Primary cooling heat flow before: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow before: [current heat flow rate of the Emergency Cooling System][line break]";
 	if the coolant volume of the Primary Cooling System is greater than 100 gal:
 		now the current heat flow rate of the Primary Cooling System is the coolant flow rate of the Primary Cooling System times 100 kilowatts/gallon;
 	otherwise:
@@ -355,8 +387,9 @@ Carry out advancing silently:
 	let dT be the current temperature of the reactor core minus 25 degrees Centigrade;
 	let NF be given by the Rate of Heat Flow Equation;
 	now the current heat flow rate of the Emergency Cooling System is NF;
-	say "Primary cooling heat flow after: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow after: [current heat flow rate of the Emergency Cooling System][line break]";
-	say "Reactor temp before: [current temperature of the reactor core][line break]";
+	if debug-output is true:
+		say "Primary cooling heat flow after: [current heat flow rate of the Primary Cooling System]; Emergency cooling heat flow after: [current heat flow rate of the Emergency Cooling System][line break]";
+		say "Reactor temp before: [current temperature of the reactor core][line break]";
 	let R0 be the current temperature of the reactor core;
 	let D be 1 second;
 	let V be 1 degree Centigrade;
@@ -368,12 +401,14 @@ Carry out advancing silently:
 	if the current temperature of the reactor core is greater than 25 degrees Centigrade:
 		now X is 5 degrees centigrade;
 	let R1 be given by the Reactor Temperature Equation 1;
-	say "Reactor temp after: [R1][line break]";
+	if debug-output is true:
+		say "Reactor temp after: [R1][line break]";
 	let RX be 0 degrees Centigrade;
 	if R1 is greater than 25 degrees Centigrade:
 		now RX is R1 minus 25 degrees Centigrade;
 	let R2 be 25 degrees Centigrade plus RX;
-	say "Reactor temp after2: [R2][line break]";
+	if debug-output is true:
+		say "Reactor temp after2: [R2][line break]";
 	now the current temperature of the reactor core is R2.
 	
 	
