@@ -306,8 +306,10 @@ Carry out initiating silently:
 	now the antepenultimate control rod position of the reactor core is 0.
 
 When play begins:
+	[try toggling debug output;]
 	try repairing silently;
 	try initiating silently;
+	[try advancing;]
 	try advancing silently;
 	say "To advance the day, use 'sleep' or 'advance'. To repair the reactor, use 'repair'."
 
@@ -333,6 +335,10 @@ where NF is a heat flow rate, CF is a volumetric flow, CH is a volumetric specif
 Equation - Reactor Temperature Equation
 	R1 = R0 + RH*D*(V/Z) - EH*D*(V/Z) - PH*D*(V/Z) - X
 where R1 is a temperature, R0 is a temperature, D is an elapsed time, V is a temperature, Z is a power, RH is a heat flow rate, EH is a heat flow rate, PH is a heat flow rate, and X is a temperature.
+
+Equation - Secondary Coolant Heat Flow Equation
+	SH = HF1 / HF2 * dT / T
+where SH is a heat flow rate, HF1 is a foo, HF2 is a bar, dT is a temperature, and T is a temperature.
 
 Equation - Heat Exchanger Temperature Equation
 	XT = ((RT - A) * PF + (CT - A) * SF) / (PF + SF + N) + A
@@ -511,32 +517,47 @@ Carry out advancing silently:
 	let HF1 be SF times PV;
 	let HF2 be 350 sq gal/kilowatt;
 	let dT be the current temperature of the heat exchanger minus the current temperature of the cooling tower;
+	let T be 1 degree Centigrade;
 	[XXX TODO ugly ugly ugly! this is such a hack]
-	let SH be HF1 divided by HF2 times dT divided by 1 degree Centigrade;
+	let SH be given by the Secondary Coolant Heat Flow Equation;
+	if debug-output is true:
+		say "SF: [SF]; PV: [PV]; HF1: [HF1]; HF2: [HF2]; dT: [dT]; SH: [SH][line break]";
+		say "Secondary cooling heat flow before: [current heat flow rate of the Secondary Cooling System][line break]";
 	if the heat exchanger is broken:
 		now the current heat flow rate of the Secondary Cooling System is the current heat flow rate of the Secondary Cooling System times 0.2;
 	otherwise:
 		now the current heat flow rate of the Secondary Cooling System is SH;
+	if debug-output is true:
+		say "Secondary cooling heat flow after: [current heat flow rate of the Secondary Cooling System][line break]";
 	let SH be the current heat flow rate of the Secondary Cooling System;
 	let XT be the current temperature of the heat exchanger;
 	let CT be the current temperature of the cooling tower;
 	let D be 1 day;
 	let GO be given by the Turbine Output Equation;
+	if debug-output is true:
+		say "Turbine output power before: [current output power of the turbine][line break]";
 	if GO is greater than 2600kW:
 		let GO be 2600kW;
 	if GO is greater than 0kW and the turbine is not broken:
 		now the current output power of the turbine is GO;
 	otherwise:
 		now the current output power of the turbine is 0kW;
+	if debug-output is true:
+		say "Turbine output power after: [current output power of the turbine][line break]";
 	[	CT = A + ((XT - A) * (SH - (GO/D)) / (SH + 1) * 0.75)]
 	let A be the ambient temperature;
 	let XT be the current temperature of the heat exchanger;
-	let SH be the current heat flow rate of the secondary cooling system;
+	let SH be the current heat flow rate of the Secondary Cooling System;
 	let GO be the current output power of the turbine;
 	let M be 1 kW/day;
 	let D be 1 day;
 	let CT be given by the Cooling Tower Temperature Equation;
+	if debug-output is true:
+		say "A: [A]; XT: [XT]; SH: [SH]; GO: [GO]; M: [M]; D: [D]; CT: [CT][line break]";
+		say "Cooling tower temp before: [current temperature of the cooling tower][line break]";
 	now the current temperature of the cooling tower is CT;
+	if debug-output is true:
+		say "Cooling tower temp after: [current temperature of the cooling tower][line break]";
 	if the heat exchanger is not broken:
 		if the damage of the heat exchanger is greater than 2 and a random chance of 9 in 10 succeeds:
 			now the heat exchanger is broken;
