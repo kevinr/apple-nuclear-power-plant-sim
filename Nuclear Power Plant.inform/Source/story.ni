@@ -102,6 +102,8 @@ Report toggling debug output:
 	say "Debug output is now [if debug-output is true]ON[otherwise]OFF[end if]."
 
 [Some variables]
+The ambient temperature is always 25 degrees Centigrade.
+
 The current day is a number that varies. The current day is 0.
 
 The total equipment damage is a real number that varies. The total equipment damage is 0.
@@ -156,7 +158,7 @@ Reactor Room is a room. The reactor core is an object in Reactor Room. The react
 [reactor core]
 The reactor core has a heat flow rate called current heat flow rate. The current heat flow rate of the reactor core is usually 0 kilowatts/day.
 The reactor core has a real number called lifetime. The lifetime of the reactor core is usually 0.
-The reactor core has a temperature called current temperature. The current temperature of the reactor core is usually 25C.
+The reactor core has a temperature called current temperature. The current temperature of the reactor core is usually the ambient temperature.
 The reactor core has a number called damage. The damage of the reactor core is usually 0.
 The reactor core has a number called current control rod position. The current control rod position is usually 0.
 The reactor core has a number called penultimate control rod position. The penultimate control rod position is usually 0.
@@ -167,7 +169,7 @@ The turbine has a power called current output power. The current output power of
 The turbine has a number called damage. The damage of the turbine is usually 0.
 
 [heat exchanger]
-The heat exchanger has a temperature called current temperature.  The current temperature of the heat exchanger is usually 25C.
+The heat exchanger has a temperature called current temperature.  The current temperature of the heat exchanger is usually the ambient temperature.
 The heat exchanger has a number called damage. The damage of the heat exchanger is usually 0.
 
 [Emergency Cooling System]
@@ -194,7 +196,7 @@ The Secondary Cooling System has a volumetric flow called leak rate. The leak ra
 Outdoors is a room. The cooling tower is an object in Outdoors. The cooling tower is fixed in place.
 
 [cooling tower]
-The cooling tower has a temperature called current temperature.  The current temperature of the cooling tower is usually 25C.
+The cooling tower has a temperature called current temperature.  The current temperature of the cooling tower is usually the ambient temperature.
 
 
 [Room layout]
@@ -232,9 +234,9 @@ Carry out repairing silently:
 	now the coolant volume of the Emergency Cooling System is 300 gallons;
 	now the coolant volume of the Primary Cooling System is 120 gallons;
 	now the coolant volume of the Secondary Cooling System is 120 gallons;
-	now the current temperature of the reactor core is 25C;
-	now the current temperature of the heat exchanger is 25C;
-	now the current temperature of the cooling tower is 25C;
+	now the current temperature of the reactor core is the ambient temperature;
+	now the current temperature of the heat exchanger is the ambient temperature;
+	now the current temperature of the cooling tower is the ambient temperature;
 	[Total Equipment Damage]
 	let D0 be the total equipment damage;
 	let R be the damage of the reactor core;
@@ -446,7 +448,7 @@ Carry out advancing silently:
 	now the current heat flow rate of the Primary Cooling System is HF;
 	let CF be the coolant flow rate of the Emergency Cooling System;
 	let CH be 200 kW/gal/C;
-	let dT be the current temperature of the reactor core minus 25 degrees Centigrade;
+	let dT be the current temperature of the reactor core minus the ambient temperature;
 	let NF be given by the Rate of Heat Flow Equation;
 	now the current heat flow rate of the Emergency Cooling System is NF;
 	if debug-output is true:
@@ -461,15 +463,15 @@ Carry out advancing silently:
 	let EF be the current heat flow rate of the Emergency Cooling System;
 	let PF be the current heat flow rate of the Primary Cooling System;
 	let X be 0 degrees Centigrade;
-	if the current temperature of the reactor core is greater than 25 degrees Centigrade:
+	if the current temperature of the reactor core is greater than the ambient temperature:
 		now X is 5 degrees centigrade;
 	let R1 be given by the Reactor Temperature Equation 1;
 	if debug-output is true:
 		say "Reactor temp after: [R1][line break]";
 	let RX be 0 degrees Centigrade;
-	if R1 is greater than 25 degrees Centigrade:
-		now RX is R1 minus 25 degrees Centigrade;
-	let R2 be 25 degrees Centigrade plus RX;
+	if R1 is greater than the ambient temperature:
+		now RX is R1 minus the ambient temperature;
+	let R2 be the ambient temperature plus RX;
 	if debug-output is true:
 		say "Reactor temp after2: [R2][line break]";
 	now the current temperature of the reactor core is R2.
