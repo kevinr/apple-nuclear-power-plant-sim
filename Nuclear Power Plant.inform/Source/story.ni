@@ -49,7 +49,7 @@ A volume is a kind of value.
 [Volumetric flow]
 Volumetric flow is a kind of value.
 
-1.0 G/day (in US units, in G/day) or 1 gallon per day (in gallons per day, singular) or 2 gallons per day (in gallons per day, plural) or 1 gal/d (in gals/d, singular) or 2 gals/d (in gals/d, plural) or 1 gal/day (in gals/day, singular) or 2 gals/day (in gals/day, plural) specifies a volumetric flow.
+1.0 G/day (in US units, in G/day) or 1 gallon per day (in gallons per day, singular) or 2 gallons per day (in gallons per day, plural) or 1 gallon/day (in gallons/day, singular) or 2 gallons/day (in gallons/day, plural) or 1 gal/d (in gals/d, singular) or 2 gals/d (in gals/d, plural) or 1 gal/day (in gals/day, singular) or 2 gals/day (in gals/day, plural) specifies a volumetric flow.
 
 Volumetric flow times elapsed time specifies a volume.
 
@@ -185,6 +185,7 @@ The Primary Cooling System has a volumetric flow called coolant flow rate. The c
 The Primary Cooling System has a volumetric flow called leak rate. The leak rate of the Primary Cooling System is usually 0 gals/day.
 
 [Secondary Cooling System]
+The Secondary Cooling System has a heat flow rate called current heat flow rate. The current heat flow rate of the Secondary Cooling System is usually 0 kilowatts/day.
 The Secondary Cooling System has a volume called coolant volume. The coolant volume of the Secondary Cooling System is usually 0 gallons.
 The Secondary Cooling System has a volumetric flow called coolant flow rate. The coolant flow rate of the Secondary Cooling System is usually 0 gals/day.
 The Secondary Cooling System has a volumetric flow called leak rate. The leak rate of the Secondary Cooling System is usually 0 gals/day.
@@ -329,9 +330,21 @@ Equation - Rate of Heat Flow Equation
 	NF = CF * CH * dT
 where NF is a heat flow rate, CF is a volumetric flow, CH is a volumetric specific heat capacity, and dT is a temperature.
 
-Equation - Reactor Temperature Equation 1
-	R1 = R0 + RF*D*(V/Z) - EF*D*(V/Z) - PF*D*(V/Z) - X
-where R1 is a temperature, R0 is a temperature, D is an elapsed time, V is a temperature, Z is a power, RF is a heat flow rate, EF is a heat flow rate, PF is a heat flow rate, and X is a temperature.
+Equation - Reactor Temperature Equation
+	R1 = R0 + RH*D*(V/Z) - EH*D*(V/Z) - PH*D*(V/Z) - X
+where R1 is a temperature, R0 is a temperature, D is an elapsed time, V is a temperature, Z is a power, RH is a heat flow rate, EH is a heat flow rate, PH is a heat flow rate, and X is a temperature.
+
+Equation - Heat Exchanger Temperature Equation
+	XT = ((RT - A) * PF + (CT - A) * SF) / (PF + SF + N) + A
+where XT is a temperature, RT is a temperature, CT is a temperature, A is a temperature, PF is a volumetric flow, SF is a volumetric flow, and N is a volumetric flow.
+
+Equation - Turbine Output Equation
+	GO = (SH / XT * (XT - CT) * 2/3) * D
+where GO is a power, SH is a heat flow rate, XT is a temperature, CT is a temperature, and D is an elapsed time.
+
+Equation - Cooling Tower Temperature Equation
+	CT = A + ((XT - A) * (SH - (GO/D)) / (SH + M) * 0.75)
+where CT is a temperature, A is a temperature, XT is a temperature, SH is a heat flow rate, GO is a power, M is a heat flow rate, and D is an elapsed time.
 
 Carry out advancing silently:
 	increment the current day;
@@ -459,13 +472,13 @@ Carry out advancing silently:
 	let D be 1 day;
 	let V be 1 degree Centigrade;
 	let Z be 1 kilowatt;
-	let RF be the current heat flow rate of the reactor core;
-	let EF be the current heat flow rate of the Emergency Cooling System;
-	let PF be the current heat flow rate of the Primary Cooling System;
+	let RH be the current heat flow rate of the reactor core;
+	let EH be the current heat flow rate of the Emergency Cooling System;
+	let PH be the current heat flow rate of the Primary Cooling System;
 	let X be 0 degrees Centigrade;
 	if the current temperature of the reactor core is greater than the ambient temperature:
 		now X is 5 degrees centigrade;
-	let R1 be given by the Reactor Temperature Equation 1;
+	let R1 be given by the Reactor Temperature Equation;
 	if debug-output is true:
 		say "Reactor temp after: [R1][line break]";
 	let RX be 0 degrees Centigrade;
@@ -474,7 +487,62 @@ Carry out advancing silently:
 	let R2 be the ambient temperature plus RX;
 	if debug-output is true:
 		say "Reactor temp after2: [R2][line break]";
-	now the current temperature of the reactor core is R2.
-	
+	now the current temperature of the reactor core is R2;
+	[	XT = ((RT - A) * PF + (CT - A) * SF) / (PF + SF + 1) + A]
+	let RT be the current temperature of the reactor core;
+	let CT be the current temperature of the cooling tower;
+	let A be the ambient temperature;
+	let PF be the coolant flow rate of the Primary Cooling System;
+	let SF be the coolant flow rate of the Secondary Cooling System;
+	let N be 1 gallon/day;
+	let XT be given by the Heat Exchanger Temperature Equation;
+	if debug-output is true:
+		say "Heat exchanger temp before: [current temperature of the heat exchanger][line break]";
+	if the heat exchanger is broken:
+		now the current temperature of the heat exchanger is the current temperature of the reactor core times 0.8 plus 5 degrees Centigrade;
+	otherwise:
+		now the current temperature of the heat exchanger is XT;
+	if debug-output is true:
+		say "Heat exchanger temp after: [current temperature of the heat exchanger][line break]";
+	let SF be the coolant flow rate of the Secondary Cooling System;
+	let PV be the coolant volume of the Primary Cooling System;
+	if the coolant volume of the Primary Cooling System is greater than 100 gal:
+		let PV be 100 gallons;
+	let HF1 be SF times PV;
+	let HF2 be 350 sq gal/kilowatt;
+	let dT be the current temperature of the heat exchanger minus the current temperature of the cooling tower;
+	[XXX TODO ugly ugly ugly! this is such a hack]
+	let SH be HF1 divided by HF2 times dT divided by 1 degree Centigrade;
+	if the heat exchanger is broken:
+		now the current heat flow rate of the Secondary Cooling System is the current heat flow rate of the Secondary Cooling System times 0.2;
+	otherwise:
+		now the current heat flow rate of the Secondary Cooling System is SH;
+	let SH be the current heat flow rate of the Secondary Cooling System;
+	let XT be the current temperature of the heat exchanger;
+	let CT be the current temperature of the cooling tower;
+	let D be 1 day;
+	let GO be given by the Turbine Output Equation;
+	if GO is greater than 2600kW:
+		let GO be 2600kW;
+	if GO is greater than 0kW and the turbine is not broken:
+		now the current output power of the turbine is GO;
+	otherwise:
+		now the current output power of the turbine is 0kW;
+	[	CT = A + ((XT - A) * (SH - (GO/D)) / (SH + 1) * 0.75)]
+	let A be the ambient temperature;
+	let XT be the current temperature of the heat exchanger;
+	let SH be the current heat flow rate of the secondary cooling system;
+	let GO be the current output power of the turbine;
+	let M be 1 kW/day;
+	let D be 1 day;
+	let CT be given by the Cooling Tower Temperature Equation;
+	now the current temperature of the cooling tower is CT;
+	if the heat exchanger is not broken:
+		if the damage of the heat exchanger is greater than 2 and a random chance of 9 in 10 succeeds:
+			now the heat exchanger is broken;
+	if the turbine is not broken:
+		if the damage of the heat exchanger is greater than 4 and a random chance of 9 in 10 succeeds:
+			now the turbine is broken;
+	now the total power output is the total power output plus the current output power of the turbine.
 	
 	[REACTOR nuke stuff]
