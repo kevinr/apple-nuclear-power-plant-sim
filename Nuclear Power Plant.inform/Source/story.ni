@@ -106,6 +106,8 @@ The ambient temperature is always 25 degrees Centigrade.
 
 The current day is a number that varies. The current day is 0.
 
+The most recent maintenance shutdown duration is a number that varies. The most recent maintenance shutdown duration is 0.
+
 The total equipment damage is a real number that varies. The total equipment damage is 0.
 
 The total power output is a power that varies. The total power output is 0 kilowatts.
@@ -128,13 +130,16 @@ Carry out numbered setting it to:
 	say "You set [the noun] to [the number understood].";
 	now the current setting of the noun is the number understood.
 
-Test dial with "set dial to 10 / set dial to 1000 / set dial to foo / set panel to 10 / set panel to 1000 / set panel to foo".
+Test dial with "set dial to 10 / set dial to 1000 / set dial to foo".
 
 [Breakables]
 A breakable is a kind of thing. A breakable can be broken or unbroken. A breakable is usually unbroken.
 
 Understand the command "break" as something new. Understand "break [something]" as breaking. Breaking is an action applying to one thing. Check breaking: if the noun is not a breakable, say "You can't break that." instead. Carry out breaking: say "Crash!"; now the noun is broken. Before printing the name of a broken breakable: say "broken ".
 
+[Reading]
+A thing has some text called printing. The printing of a thing is usually "blank".
+Understand the command "read" as something new. Understand "read [something]" as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is "blank", say "Nothing is written on [the noun]." instead. Carry out reading: say "You read: [printing of the noun][line break]". Report reading: do nothing.
 
 [The Control Room]
 
@@ -146,6 +151,30 @@ After entering the chair:
 	say "You sit down in the heavy padded chair.";
 	try examining the control panel.
 
+An instructional brochure is a thing on the control panel. The instructional brochure is fixed in place.  Understand "instructions" as the brochure.  The description is "An instructional brochure, printed in large, friendly letters - 'Basic Operation of Your Apple Nuclear Power Plant'.  It's suspiciously thin for so complex and dangerous a piece of machinery."  The printing of the instructional brochure is "[line break][line break][bold type]
+APPLE NUCLEAR POWER PLANT[line break]
+by Stephen R. Berggren[line break]
+adapted for Inform 7 by Kevin Riggle[roman type]
+
+This program simulates the operation of a nuclear power reactor.  The object is to operate the plant at a maximum average power output without causing a reactor meltdown.
+
+The control rods adjust the amount of heat produced by the reactor.  Primary coolant transfers this heat to the heat exchanger.  Secondary coolant transfers heat from the heat exchanger to the turbine, where power is produced, and finally to the cooling tower.  The emergency coolant is used to help shut down the reactor when other systems fail.  Unlike the other coolants, emergency coolant is not recycled.
+
+The controls are operated by setting the control rod dial and coolant flow controls to the desired settings, with 'set (control) to (number)' (use values from 0 to 100).  If no entry is made, the values will not change.
+
+When the desired entries have been made, use 'sleep' or 'advance' to advance to the next day.
+
+The reactor can be operated until a meltdown occurs or the reactor fuel is exhausted.  The fuel will last about 100 to 150 days.  When the fuel is exhausted, your performance will be evaluated.
+
+If you want to repair damage or replace coolant, bring the reactor temperature down below 100C and shut off the coolant flows.  This will cause an automatic maintenance shutdown and all coolant will be replenished and repairs made.  The greater the damage, the longer the repairs will take.
+
+[bold type]WARNING: This power plant has NO automatic safety devices!![roman type]".
+
+Test brochure with "x brochure / read brochure / take brochure".
+
+Instead of taking the brochure:
+	say "That seems like it should stay near the control panel, just for safety's sake."
+
 The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial.
 
 The emergency coolant flow control is a settable on the control panel.  The emergency coolant flow control is fixed in place.  The description of the emergency coolant flow control is "Underneath the screen are three controls in a panel section labeled 'Coolant Flow'.  The control labeled 'Emergency' is currently set to [current setting of the emergency coolant flow control]."
@@ -154,7 +183,7 @@ The primary coolant flow control is a settable on the control panel.  The primar
 
 The secondary coolant flow control is a settable on the control panel.  The secondary coolant flow control is fixed in place.  The description of the secondary coolant flow control is "Underneath the screen are three controls in a panel section labeled 'Coolant Flow'.  The control labeled 'Secondary' is currently set to [current setting of the secondary coolant flow control]."
 
-Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day][line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the leak rate of the Primary Cooling System is greater than 4 gal/day] PRIMARY COOLANT LEAK[line break][end if][if the leak rate of the Secondary Cooling System is greater than 4 gal/day] SECONDARY COOLANT LEAK[line break][end if][if the leak rate of the Emergency Cooling System is greater than 2 gal/day] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT  [line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial].[paragraph break]Underneath the screen are three controls in a panel section labeled 'Coolant Flow'.  'Emergency' is currently set to [current setting of the emergency coolant flow control].  'Primary' is currently set to [current setting of the primary coolant flow control].  'Secondary' is currently set to [current setting of the secondary coolant flow control]."
+Instead of examining the control panel: say "The screen reads:[line break][line break][fixed letter spacing]       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day][line break][line break]WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the leak rate of the Primary Cooling System is greater than 4 gal/day] PRIMARY COOLANT LEAK[line break][end if][if the leak rate of the Secondary Cooling System is greater than 4 gal/day] SECONDARY COOLANT LEAK[line break][end if][if the leak rate of the Emergency Cooling System is greater than 2 gal/day] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]"; say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT [total power output divided by current day][line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System][variable letter spacing][paragraph break]There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial].[paragraph break]Underneath the screen are three controls in a panel section labeled 'Coolant Flow'.  'Emergency' is currently set to [current setting of the emergency coolant flow control].  'Primary' is currently set to [current setting of the primary coolant flow control].  'Secondary' is currently set to [current setting of the secondary coolant flow control]."
 
 
 [The Reactor Room]
@@ -280,6 +309,7 @@ Carry out repairing silently:
 	if the turbine is broken:
 		now TD is 3;
 	let M be given by the Maintenance Days Equation;
+	now the most recent maintenance shutdown duration is M;
 	increase the current day by M;
 	[reset]
 	now the damage of the reactor core is 0;
@@ -295,7 +325,11 @@ Carry out repairing silently:
 	now the coolant flow rate of the Emergency Cooling System is 0 gal/day;
 	now the coolant flow rate of the Primary Cooling System is 0 gal/day;
 	now the coolant flow rate of the Secondary Cooling System is 0 gal/day;
-	now the current output power of the turbine is 0 kilowatts.
+	now the current output power of the turbine is 0 kilowatts;
+	now the current setting of the control dial is 0;
+	now the current setting of the Emergency Coolant Flow control is 0;
+	now the current setting of the Primary Coolant Flow control is 0;
+	now the current setting of the Secondary Coolant Flow control is 0.
 
 
 [Initial setup]
@@ -317,7 +351,7 @@ When play begins:
 	try initiating silently;
 	[try advancing;]
 	try advancing silently;
-	say "To advance the day, use 'sleep' or 'advance'. To repair the reactor, use 'repair'."
+	say "To advance the day, use 'sleep' or 'advance'."
 
 
 [Advancing the simulation clock]
@@ -328,9 +362,10 @@ Advancing silently is an action applying to nothing.
 
 Carry out advancing:
 	try advancing silently;
-	say "The next day...";
-	if the player is on the heavy padded chair:
-		try examining the control panel.
+	if rule succeeded: 
+		say "The next day...";
+		if the player is on the heavy padded chair:
+			try examining the control panel.
 
 Equation - Reactor Heat Flow Rate Equation
 	HF = (P0*C0 + P1*C1 + P2*C2) / 2500 * (100 - RL)
@@ -412,7 +447,19 @@ Carry out advancing silently:
 	[Emergency Cooling System]
 	if the leak rate of the Emergency Cooling System is greater than 2 gal/day and the coolant volume of the Emergency Cooling System minus 2 times (the leak rate of the Secondary Cooling System times 1 day) is greater than 0 gal:
 		decrease the coolant volume of the Secondary Cooling System by 2 times the leak rate of the Secondary Cooling System times 1 day;
-	[XXX TODO this is where we check whether the reactor is out of fuel and end the game]
+	[check whether the reactor has melted down, and, if so, end the game]
+	if the damage of the reactor core is greater than 5:
+		if debug-output is true:
+			say "going into meltdown!!";
+		try melting down;
+		end the story;
+		rule fails;
+	[check whether the reactor is out of fuel and, if so, end the game]
+	if 100 minus the lifetime of the reactor core is less than 5:
+		if debug-output is true:
+			say "ran out of fuel!!";
+		end the story;
+		rule fails;
 	[GET NEW CONTROL VALUES]
 	now the antepenultimate control rod position of the reactor core is the penultimate control rod position of the reactor core;
 	now the penultimate control rod position of the reactor core is the current control rod position of the reactor core;
@@ -420,7 +467,12 @@ Carry out advancing silently:
 	now the coolant flow rate of the Emergency Cooling System is the current setting of the emergency coolant flow control times 1 gal/day;
 	now the coolant flow rate of the Primary Cooling System is the current setting of the primary coolant flow control times 1 gal/day;
 	now the coolant flow rate of the Secondary Cooling System is the current setting of the secondary coolant flow control times 1 gal/day;
-	[XXX TODO this is where we kick off a maintenance shutdown if various inputs are zero, if we decide to go that way]
+	[if no primary/secondary coolant is flowing, the reactor is cold enough, and the control rods are fully engaged, kick off a maintenance shutdown]
+	if the current day is greater than 1 and the coolant flow rate of the Primary Cooling System is 0 gal/day and the coolant flow rate of the Secondary Cooling System is 0 gal/day and the current heat flow rate of the reactor core is less than 1 kW/day and the current temperature of the reactor core is less than 100 degrees Centigrade and the current control rod position of the reactor core is 0:
+		try repairing silently;
+		say "MAINTENANCE SHUTDOWN
+		
+		You initiate a maintenance shutdown, which lasts for [most recent maintenance shutdown duration] days.";
 	if the coolant flow rate of the Emergency Cooling System is greater than the coolant volume of the Emergency Cooling System divided by 1 day:
 		now the coolant flow rate of the Emergency Cooling System is the coolant volume of the Emergency Cooling System divided by 1 day;
 	[DAMAGE ASSESSMENT AND OPERATIONAL CALCULATIONS]
@@ -574,4 +626,35 @@ Carry out advancing silently:
 			now the turbine is broken;
 	now the total power output is the total power output plus the current output power of the turbine.
 	
-	[REACTOR nuke stuff]
+Melting down is an action applying to nothing.
+Carry out melting down:
+	say "An alarm starts to blare.  'MELTDOWN!  MELTDOWN!  MELTDOWN!'";
+	if the damage of the reactor core is greater than 6:
+		say "The reactor core has melted down and produced a steam explosion.  The containment building has ruptured.  Lethal radioactive gases and debris have escaped.
+		
+		Initiate your evacuation and radiation cleanup plans and get medical assistance.";
+	otherwise:
+		say "The reactor core has been destroyed by uncontrolled thermal runaway.  However, the containment building has not yet ruptured.
+		
+		Initiate your evacuation plan.".
+
+Evaluating power is an action applying to nothing.
+Carry out evaluating power:
+	let average power output be the total power output divided by the current day;
+	say "Over a period of [current day] days, you have produced an average power output of [average power output] per day.
+	
+	Your average power production rate is [if average power output is greater than 1800kW]near the MAXIMUM!  Power costs in your area will drop significantly.[otherwise if average power output is greater than 1500kW]EXCELLENT! Power costs in your area will not be increased.[otherwise if average power output is greater than 1200kW]ADEQUATE. You could do better.[otherwise if average power output is greater than 1000kW]way below your area's power needs.[otherwise]HORRIBLE! Find a less demanding job.".
+
+When play ends when the story has not ended finally:
+	try evaluating power;
+	try repairing;
+	say "Would you like to try again? ";
+	if the player consents:
+		try repairing silently;
+		try initiating silently;
+		try advancing silently;
+		resume the story;
+		if the player is on the heavy padded chair:
+			try examining the control panel;
+		otherwise:
+			try looking.
