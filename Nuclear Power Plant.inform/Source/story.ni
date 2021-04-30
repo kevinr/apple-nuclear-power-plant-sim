@@ -2,6 +2,8 @@
 
 [Include Metric Units by Graham Nelson.]
 
+Figure - Nuclear power plant diagram is the file "Nuclear power plant diagram.png" ("A diagram of a nuclear power plant.").
+
 [UNITS]
 
 [Elapsed time - adapted from Metric Units by Graham Nelson]
@@ -143,7 +145,7 @@ Understand the command "read" as something new. Understand "read [something]" as
 
 [The Control Room]
 
-Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it, and a chair in front of it."  The control panel is scenery in Control Room. The control panel is fixed in place. Understand "screen" as the control panel.
+Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it, and a chair in front of it.  On the wall is a poster with a diagram of a nuclear power plant."  The control panel is scenery in Control Room. The control panel is fixed in place. Understand "screen" as the control panel.
 
 A heavy padded chair is an enterable supporter in the Control Room. "If you sit in the chair, you won't need to examine the screen after advancing the day." The chair is fixed in place. The description of the chair is "A heavy, padded chair for the operator to sit at. It looks comfortable."  Understand "sit down" as entering.
 
@@ -174,6 +176,15 @@ Test brochure with "x brochure / read brochure / take brochure".
 
 Instead of taking the brochure:
 	say "That seems like it should stay near the control panel, just for safety's sake."
+	
+A nuclear power plant diagram poster is scenery in the control room.
+
+Instead of examining the poster:
+	say "You see:";
+	display the Figure - Nuclear power plant diagram;
+	say "The control rods adjust the amount of heat produced by the reactor.  Primary coolant transfers this heat to the heat exchanger.  Secondary coolant transfers heat from the heat exchanger to the turbine, where power is produced, and finally to the cooling tower.  The emergency coolant is used to help shut down the reactor when other systems fail.  Unlike the other coolants, emergency coolant is not recycled."
+	
+Test poster with "x poster".
 
 The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial.
 
