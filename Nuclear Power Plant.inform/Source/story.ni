@@ -138,7 +138,13 @@ Understand the command "break" as something new. Understand "break [something]" 
 
 [The Control Room]
 
-Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it."  The control panel is scenery in Control Room. The control panel is fixed in place. Understand "screen" as the control panel.
+Control Room is a room. "The control room of the Apple Nuclear Power Plant. It has a functional-looking control panel with a screen inset into it, and a chair in front of it."  The control panel is scenery in Control Room. The control panel is fixed in place. Understand "screen" as the control panel.
+
+A heavy padded chair is an enterable supporter in the Control Room. "If you sit in the chair, you won't need to examine the screen after advancing the day." The chair is fixed in place. The description of the chair is "A heavy, padded chair for the operator to sit at. It looks comfortable."  Understand "sit down" as entering.
+
+After entering the chair:
+	say "You sit down in the heavy padded chair.";
+	try examining the control panel.
 
 The control dial is a settable on the control panel. The description of the control dial is "There is a dial next to the screen labeled 'Control Rods'. It is currently set to [current setting of the control dial]." The control dial is fixed in place. Understand "rods" as the control dial. Understand "control rods" as the control dial.
 
@@ -316,13 +322,15 @@ When play begins:
 
 [Advancing the simulation clock]
 
-Advancing is an action applying to nothing. Instead of sleeping, try advancing. Instead of exiting, try advancing.
+Advancing is an action applying to nothing. Instead of sleeping, try advancing. Understand "advance" as advancing.
 
 Advancing silently is an action applying to nothing.
 
 Carry out advancing:
 	try advancing silently;
-	say "The next day...".
+	say "The next day...";
+	if the player is on the heavy padded chair:
+		try examining the control panel.
 
 Equation - Reactor Heat Flow Rate Equation
 	HF = (P0*C0 + P1*C1 + P2*C2) / 2500 * (100 - RL)
