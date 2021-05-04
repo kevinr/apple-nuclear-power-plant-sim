@@ -2,6 +2,7 @@
 *.swp
 *.aux
 *.log
+.DS_Store
 Nuclear Power Plant.inform/Build/
 Nuclear Power Plant.inform/Index/
 Nuclear Power Plant.inform/Metadata.iFiction

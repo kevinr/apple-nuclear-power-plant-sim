@@ -9,7 +9,9 @@ A simulation of a pressurized water nuclear power plant, rendered in the form of
 
 Unlike a real power plant, it lacks many of their safety mechanisms, as its original author acknowledges.  ('I have some final words to engineers, nuclear technicians, and other qualified readers. ...  Yes, I know it takes much less than a day for a reactor to respond to changes in coolant flow and control rod position.  Besides, who ever heard of a reactor with only one emergency coolant system, and that one with a limited supply of coolant? And, blasphemy of blasphemies, no SCRAM mechanism. ... Several concessions to accuracy were made in order to create a simulation that would provide realistic responses to simple inputs and make an interesting and instructive game.')
 
-Originally written by Stephen R. Berggren in Applesoft BASIC and published in Creative Computing Magazine, December 1980, it has been adapted to interactive fiction using Inform 7 in the hopes of making it more accessible to a modern audience, some forty years later."
+Originally written by Stephen R. Berggren in Applesoft BASIC and published in Creative Computing Magazine, December 1980, it has been adapted to interactive fiction using Inform 7 in the hopes of making it more accessible to a modern audience, some forty years later.
+
+The cover art incorportates '#OntheJob - Indian Point NPP Resident Inspector' by the Nuclear Regulatory Commission, used under the terms of its Creative Commons Attribution 2.0 Generic license."
 
 The release number is 1.
 Include Vorple Multimedia by Juhana Leinonen.
