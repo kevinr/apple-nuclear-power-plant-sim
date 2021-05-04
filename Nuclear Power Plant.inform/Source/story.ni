@@ -1,8 +1,22 @@
-"Nuclear Power Plant" by Kevin Riggle
+"Apple Nuclear Power Plant" by "Stephen R. Berggren, adapted for interactive fiction by Kevin Riggle"
+
+The story headline is "A simulation".
+The story genre is "Non-fiction".
+The story creation year is 2021.
+The story description is "THIS IS A PRE-RELEASE BUILD! PLEASE DO NOT REDISTRIBUTE! THE RELEASE NUMBER WILL NOT BE UPDATED WHEN CHANGES ARE MADE.
+
+A simulation of a pressurized water nuclear power plant, rendered in the form of an interactive fiction.  As with a real power plant, the goal is to produce a high average electrical power output until all the fuel is used up without injuring anyone.
+
+Unlike a real power plant, it lacks many of their safety mechanisms, as its original author acknowledges.  ('I have some final words to engineers, nuclear technicians, and other qualified readers. ...  Yes, I know it takes much less than a day for a reactor to respond to changes in coolant flow and control rod position.  Besides, who ever heard of a reactor with only one emergency coolant system, and that one with a limited supply of coolant? And, blasphemy of blasphemies, no SCRAM mechanism. ... Several concessions to accuracy were made in order to create a simulation that would provide realistic responses to simple inputs and make an interesting and instructive game.')
+
+Originally written by Stephen R. Berggren in Applesoft BASIC and published in Creative Computing Magazine, December 1980, it has been adapted to interactive fiction using Inform 7 in the hopes of making it more accessible to a modern audience, some forty years later."
+
+The release number is 1.
+Include Vorple Multimedia by Juhana Leinonen.
+Figure - Nuclear power plant diagram is the file "Nuclear power plant diagram.png" ("A diagram of a nuclear power plant.").
+Release along with a website, the file "Figures/Nuclear power plant diagram.png", and the "Vorple" interpreter.
 
 [Include Metric Units by Graham Nelson.]
-
-Figure - Nuclear power plant diagram is the file "Nuclear power plant diagram.png" ("A diagram of a nuclear power plant.").
 
 [UNITS]
 
@@ -156,7 +170,7 @@ After entering the chair:
 An instructional brochure is a thing on the control panel. The instructional brochure is fixed in place.  Understand "instructions" as the brochure.  The description is "An instructional brochure, printed in large, friendly letters - 'Basic Operation of Your Apple Nuclear Power Plant'.  It's suspiciously thin for so complex and dangerous a piece of machinery."  The printing of the instructional brochure is "[line break][line break][bold type]
 APPLE NUCLEAR POWER PLANT[line break]
 by Stephen R. Berggren[line break]
-adapted for Inform 7 by Kevin Riggle[roman type]
+adapted for interactive fiction by Kevin Riggle[roman type]
 
 This program simulates the operation of a nuclear power reactor.  The object is to operate the plant at a maximum average power output without causing a reactor meltdown.
 
@@ -181,8 +195,11 @@ A nuclear power plant diagram poster is scenery in the control room.
 
 Instead of examining the poster:
 	say "You see:";
-	display the Figure - Nuclear power plant diagram;
-	say "The control rods adjust the amount of heat produced by the reactor.  Primary coolant transfers this heat to the heat exchanger.  Secondary coolant transfers heat from the heat exchanger to the turbine, where power is produced, and finally to the cooling tower.  The emergency coolant is used to help shut down the reactor when other systems fail.  Unlike the other coolants, emergency coolant is not recycled."
+	if Vorple is supported:
+		place an image "Nuclear power plant diagram.png" with the description "A diagram of a nuclear power plant.";
+	otherwise:
+		display the Figure - Nuclear power plant diagram;
+	say "The control rods adjust the amount of heat produced in the reactor vessel.  Primary coolant transfers this heat to the heat exchanger.  Secondary coolant transfers heat from the heat exchanger to the turbine, where power is produced, and finally to the cooling tower.  The emergency coolant is used to help shut down the reactor when other systems fail.  Unlike the other coolants, emergency coolant is not recycled."
 	
 Test poster with "x poster".
 
