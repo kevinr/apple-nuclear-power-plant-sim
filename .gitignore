@@ -2,3 +2,14 @@
 *.swp
 *.aux
 *.log
+.DS_Store
+Nuclear Power Plant.inform/Build/
+Nuclear Power Plant.inform/Index/
+Nuclear Power Plant.inform/Metadata.iFiction
+Nuclear Power Plant.inform/Release.blurb
+Nuclear Power Plant.inform/Settings.plist
+Nuclear Power Plant.inform/Skein.skein
+Nuclear Power Plant.inform/manifest.plist
+Nuclear Power Plant.inform/notes.rtf
+Nuclear Power Plant.materials/Icon*
+Nuclear Power Plant.materials/Release/

@@ -1,0 +1,4 @@
+[submodule "gh-pages"]
+	path = gh-pages
+	url = git@github.com:kevinr/apple-nuclear-power-plant-sim.git
+	branch = gh-pages
