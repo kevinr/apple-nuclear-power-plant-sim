@@ -11,12 +11,12 @@ Unlike a real power plant, it lacks many of their safety mechanisms, as its orig
 
 Originally written by Stephen R. Berggren in Applesoft BASIC and published in Creative Computing Magazine, December 1980, it has been adapted to interactive fiction using Inform 7 in the hopes of making it more accessible to a modern audience, some forty years later.
 
-The cover art incorportates '#OntheJob - Indian Point NPP Resident Inspector' by the Nuclear Regulatory Commission, used under the terms of its Creative Commons Attribution 2.0 Generic license."
+The cover art incorporates '#OntheJob - Indian Point NPP Resident Inspector' by the Nuclear Regulatory Commission, used under the terms of its Creative Commons Attribution 2.0 Generic license."
 
 The release number is 1.
 Include Vorple Multimedia by Juhana Leinonen.
 Figure - Nuclear power plant diagram is the file "Nuclear power plant diagram.png" ("A diagram of a nuclear power plant.").
-Release along with a website, the file "Figures/Nuclear power plant diagram.png", and the "Vorple" interpreter.
+Release along with cover art ("A nuclear power plant control panel"), a website, the file "Figures/Nuclear power plant diagram.png", and the "Vorple" interpreter.
 
 [Include Metric Units by Graham Nelson.]
 
