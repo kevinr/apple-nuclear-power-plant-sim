@@ -272,21 +272,29 @@ def simulation():
         print "reactor temp after: %d" % (s['reactor_temp'],)
         s['reactor_temp'] = 25 + (s['reactor_temp'] - 25) * (s['reactor_temp'] > 25)
         print "reactor temp after2: %d" % (s['reactor_temp'],)
+        print "heat exchanger temp before: %d" % (s['heat_exchanger_temp'],)
         s['heat_exchanger_temp'] = ((s['reactor_temp'] - 25) * s['primary_coolant_flow_rate'] + (s['cooling_tower_temp'] - 25) * s['secondary_coolant_flow_rate']) / (s['primary_coolant_flow_rate'] + s['secondary_coolant_flow_rate'] + 1) + 25
 
         if s['heat_exchanger_broken'] :
             s['heat_exchanger_temp'] = s['reactor_temp'] * 0.8 + 5
+        print "heat exchanger temp after: %d" % (s['heat_exchanger_temp'],)
 
+        print "SF: %f; PV; %f; HT: %f; CT: %f" % (s['secondary_coolant_flow_rate'], s['primary_coolant_vol'], s['heat_exchanger_temp'], s['cooling_tower_temp'])
         secondary_coolant_heat_flow = s['secondary_coolant_flow_rate'] * (100 * (s['primary_coolant_vol'] > 100) + s['primary_coolant_vol'] * (s['primary_coolant_vol'] <= 100)) / 350 * (s['heat_exchanger_temp'] - s['cooling_tower_temp'])
         if s['heat_exchanger_broken'] :
             secondary_coolant_heat_flow = secondary_coolant_heat_flow * .2
+        print "secondary coolant heat flow after: %f" % (secondary_coolant_heat_flow,)
 
+        print "turbine output before: %d" % (s['turbine_output'],)
         s['turbine_output'] = secondary_coolant_heat_flow / s['heat_exchanger_temp'] * (s['heat_exchanger_temp'] - s['cooling_tower_temp']) * 2 / 3
         if s['turbine_output'] > 2600 :
             s['turbine_output'] = 2600
         s['turbine_output'] = s['turbine_output'] * (s['turbine_output'] > 0) * (s['turbine_broken'] == 0)
+        print "turbine output after: %d" % (s['turbine_output'],)
 
+        print "cooling tower temp before: %d" % (s['cooling_tower_temp'],)
         s['cooling_tower_temp'] = 25 + ((s['heat_exchanger_temp'] - 25) * (secondary_coolant_heat_flow - s['turbine_output']) / (secondary_coolant_heat_flow + 1) * 0.75)
+        print "cooling tower temp after: %d" % (s['cooling_tower_temp'],)
         if s['heat_exchanger_broken'] < 1 :
             s['heat_exchanger_broken'] = (s['heat_exchanger_damage'] > 2) * ( random.random() > 0.9)
         if s['turbine_broken'] < 1 :

@@ -429,8 +429,8 @@ Equation - Reactor Temperature Equation
 where R1 is a temperature, R0 is a temperature, D is an elapsed time, V is a temperature, Z is a power, RH is a heat flow rate, EH is a heat flow rate, PH is a heat flow rate, and X is a temperature.
 
 Equation - Secondary Coolant Heat Flow Equation
-	SH = HF1 / HF2 * dT / T
-where SH is a heat flow rate, HF1 is a foo, HF2 is a bar, dT is a temperature, and T is a temperature.
+	SH = SF * PV / HF2 * (HT - CT) / T
+where SH is a heat flow rate, SF is a volumetric flow, PV is a volume, HF2 is a bar, HT is a temperature, CT is a temperature, and T is a temperature.
 
 Equation - Heat Exchanger Temperature Equation
 	XT = ((RT - A) * PF + (CT - A) * SF) / (PF + SF + N) + A
@@ -625,12 +625,12 @@ Carry out advancing silently:
 		let PV be 100 gallons;
 	let HF1 be SF times PV;
 	let HF2 be 350 sq gal/kilowatt;
-	let dT be the current temperature of the heat exchanger minus the current temperature of the cooling tower;
+	let HT be the current temperature of the heat exchanger;
+	let CT be the current temperature of the cooling tower;
 	let T be 1 degree Centigrade;
-	[XXX TODO ugly ugly ugly! this is such a hack]
 	let SH be given by the Secondary Coolant Heat Flow Equation;
 	if debug-output is true:
-		say "SF: [SF]; PV: [PV]; HF1: [HF1]; HF2: [HF2]; dT: [dT]; SH: [SH][line break]";
+		say "SF: [SF]; PV: [PV]; HF1: [HF1]; HF2: [HF2]; HT: [HT]; CT: [CT]; SH: [SH][line break]";
 		say "Secondary cooling heat flow before: [current heat flow rate of the Secondary Cooling System][line break]";
 	if the heat exchanger is broken:
 		now the current heat flow rate of the Secondary Cooling System is the current heat flow rate of the Secondary Cooling System times 0.2;
@@ -707,3 +707,8 @@ When play ends when the story has not ended finally:
 			try examining the control panel;
 		otherwise:
 			try looking.
+
+[TESTS AND KNOWN BUGS]
+
+[This test gives different results than the equivalent run in either the Applesoft BASIC original or the Python port, in particular here because of a difference in how the values in the Secondary Coolant Heat Flow Equation are handled.  The reason appears to be that many of the variables in use are declared as integers in the original, so values get floored down before being used for further calculation, whereas here all the variables are real numbers (floats), and so preserve the full precision all the way through the calculation.  After trying a couple potential easy fixes and failing, I've come to the reluctant conclusion that fixing this would require quite a bit of change to how I'm handling the values, and their interaction with the Inform 7 units system, and I'm not feeling at all enthusiastic about what amounts to entirely redoing the core of the port.  The results of the bug are only that some values are larger than expected, meaning that over time values grow more quickly.  Unless this proves fatal to the ability of the player to achieve an excellent ending (still TBD), for the moment I'm going to document this as a known issue and move on. -KR]
+Test math with "toggle debugging / sit down / set rods to 25 / sleep / set primary to 45 / set secondary to 90 / sleep".
