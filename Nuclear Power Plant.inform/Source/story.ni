@@ -17,7 +17,7 @@ The release number is 1.
 Include Vorple Element Manipulation by Juhana Leinonen.
 Include Vorple Multimedia by Juhana Leinonen.
 Figure - Nuclear power plant diagram is the file "Nuclear power plant diagram.png" ("A diagram of a nuclear power plant.").
-Release along with cover art ("A nuclear power plant control panel"), a website, style sheet "apple-nuclear-power-plant.css", the file "Figures/Nuclear power plant diagram.png", and the "Vorple" interpreter.
+Release along with cover art ("A nuclear power plant control panel"), a "FixedStandard" website, style sheet "apple-nuclear-power-plant.css", the file "Figures/Nuclear power plant diagram.png", and the "Vorple" interpreter.
 
 [Include Metric Units by Graham Nelson.]
 
