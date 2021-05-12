@@ -109,7 +109,7 @@ definition of h1.
 
 */
 h1 { font-size: 2em;  }
-h2 { font-size: 1em; line-height: .25;}
+h2 { font-size: 1em; line-height: 1.25;}
 
 /* The about formatting applies to blurb information. */
 
@@ -127,11 +127,11 @@ blurb to be unindented but subsequent paragraphs to be indented a small
 distance. 
 */
 
-.about p { margin-bottom: 0; }
+.about p { margin-bottom: 1em; }
 
 .about p + p
 {
-	text-indent: 1.4em;
+	text-indent: 0;
 	margin-top: 0;
 }
 
