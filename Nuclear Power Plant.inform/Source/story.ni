@@ -58,7 +58,7 @@ apply in a given time - in the same period of time powerful things can do a lot
 while feeble things much less. Typical domestic light bulbs take 60W of power
 to run (twice as much as the human brain), and electric heaters perhaps 3kW."
 
-1kW (in US units, in kW) or 1 kilowatt (in kilowatts, singular) or
+1.0kW (in US units, in kW) or 1 kilowatt (in kilowatts, singular) or
 2 kilowatts (in kilowatts, plural) specifies a power.
 
 [Volume]
@@ -103,6 +103,16 @@ A volume times a volumetric flow specifies a foo.
 Bar is a kind of value.
 1.0 sq gal/kilowatt (in US units, in sq gals/kilowatt, singular) or 2 sq gals/kilowatt (in sq gals/kilowatt, plural) specifies a bar.
 Bar times a volumetric heat capacity specifies a volume.
+
+[Define a rounding function over other arithmetic values - h/t https://intfiction.org/t/problems-displaying-values-with-units-math-with-values-that-have-units-generally/50795/3]
+Include Easy Unit Values by Otis the Dog.
+To decide which K is (original - arithmetic value of kind K) rounded down:
+	let neutral-element be the unit value of K;
+	let original-as-real be original divided by neutral-element;
+	let r be the floor of original-as-real to the nearest whole number;
+	let result be r multiplied by neutral-element;
+	decide on result.
+
 
 
 [GAME]
@@ -227,7 +237,7 @@ Instead of examining the control panel:
 		say "       APPLE NUCLEAR POWER PLANT[line break]        STATUS REPORT - DAY [current day]";
 		say "[paragraph break]";
 	say "WARNINGS:[line break][line break][if the current temperature of the reactor core is greater than 800 degrees Centigrade] REACTOR OVERHEATED[line break][end if][if the current temperature of the heat exchanger is greater than 500 degrees Centigrade] HEAT EXCHANGER OVERHEATED[line break][end if][if the current output power of the turbine is greater than 2000 kilowatts] TURBINE OVERLOADED[line break][end if][if the current temperature of the cooling tower is greater than 300 degrees Centigrade] COOLING TOWER OVERHEATED[line break][end if][if the current output power of the turbine is less than 1000 kilowatts] POWER OUTPUT LOW[line break][end if][if the coolant volume of the Emergency Cooling System is less than 200 gal] EMERGENCY COOLANT LOW[line break][end if][if the coolant volume of the Primary Cooling System is less than 100 gal] PRIMARY COOLANT LOW[line break][end if][if the coolant volume of the Secondary Cooling System is less than 100 gal] SECONDARY COOLANT LOW[line break][end if][line break]DAMAGE:[line break][line break][if the damage of the reactor core is greater than 3] REACTOR CORE DAMAGED[line break][end if][if the leak rate of the Primary Cooling System is greater than 4 gal/day] PRIMARY COOLANT LEAK[line break][end if][if the leak rate of the Secondary Cooling System is greater than 4 gal/day] SECONDARY COOLANT LEAK[line break][end if][if the leak rate of the Emergency Cooling System is greater than 2 gal/day] EMERGENCY COOLANT LEAK[line break][end if][if the Primary Cooling System is broken] PRIMARY COOLANT PUMP FAILURE[line break][end if][if the Secondary Cooling System is broken] SECONDARY COOLANT PUMP FAILURE[line break][end if][if the heat exchanger is broken] HEAT EXCHANGER FAILURE[line break][end if][if the turbine is broken] TURBINE FAILURE[line break][end if][line break]";
-	say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine in KW][line break] AVERAGE POWER OUTPUT [total power output divided by current day][line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System in G]  FLOW- [coolant flow rate of the Emergency Cooling System][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System in G]  FLOW- [coolant flow rate of the Primary Cooling System][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System in G]  FLOW- [coolant flow rate of the Secondary Cooling System]";
+	say "INDICATORS:[line break] REACTOR TEMP. (MAX 800) [current temperature of the reactor core rounded down][line break] HEAT EXCHANGER TEMP. (MAX 500) [current temperature of the heat exchanger rounded down][line break] COOLING TOWER TEMP. (MAX 300) [current temperature of the cooling tower rounded down][line break] POWER OUTPUT (MAX 2000KW) [current output power of the turbine rounded down][line break] AVERAGE POWER OUTPUT [(total power output divided by current day) rounded down][line break] CONTROL RODS- [current control rod position of the reactor core][line break] COOLANTS[line break]  EMERGENCY  LEVEL- [coolant volume of the Emergency Cooling System rounded down]  FLOW- [coolant flow rate of the Emergency Cooling System rounded down][line break]  PRIMARY    LEVEL- [coolant volume of the Primary Cooling System rounded down]  FLOW- [coolant flow rate of the Primary Cooling System rounded down][line break]  SECONDARY  LEVEL- [coolant volume of the Secondary Cooling System rounded down]  FLOW- [coolant flow rate of the Secondary Cooling System rounded down]";
 	if Vorple is supported:
 		close HTML tag;
 	otherwise:
@@ -690,7 +700,7 @@ Carry out melting down:
 Evaluating power is an action applying to nothing.
 Carry out evaluating power:
 	let average power output be the total power output divided by the current day;
-	say "Over a period of [current day] days, you have produced an average power output of [average power output] per day.
+	say "Over a period of [current day] days, you have produced an average power output of [average power output rounded down] per day.
 	
 	Your average power production rate is [if average power output is greater than 1800kW]near the MAXIMUM!  Power costs in your area will drop significantly.[otherwise if average power output is greater than 1500kW]EXCELLENT! Power costs in your area will not be increased.[otherwise if average power output is greater than 1200kW]ADEQUATE. You could do better.[otherwise if average power output is greater than 1000kW]way below your area's power needs.[otherwise]HORRIBLE! Find a less demanding job.".
 
