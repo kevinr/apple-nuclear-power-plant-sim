@@ -3,6 +3,7 @@
 *.aux
 *.log
 .DS_Store
+__pycache__
 Nuclear Power Plant.inform/Build/
 Nuclear Power Plant.inform/Index/
 Nuclear Power Plant.inform/Metadata.iFiction
